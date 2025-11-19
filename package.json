@@ -1,7 +1,7 @@
 {
   "name": "html-parse-stringify2",
   "description": "Parses well-formed HTML (meaning all tags closed) into an AST and back. quickly.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "Ray Di Ciaccio <ray.diciaccio@gmail.com>",
   "bugs": {
     "url": "https://github.com/rayd/html-parse-stringify2/issues"

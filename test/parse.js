@@ -482,6 +482,21 @@ test('parse', function (t) {
     t.end();
 });
 
+test('ReDoS vulnerability fix (CVE-2021-23346)', function (t) {
+    // Test malicious inputs that would cause catastrophic backtracking
+    // with the vulnerable regex pattern
+    var maliciousInput1 = '<!\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'!';
+    var maliciousInput2 = '<!""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""!';
+    
+    var start = Date.now();
+    HTML.parse(maliciousInput1);
+    HTML.parse(maliciousInput2);
+    var duration = Date.now() - start;
+    
+    t.ok(duration < 100, 'should not hang on ReDoS input (took ' + duration + 'ms)');
+    t.end();
+});
+
 test('simple speed sanity check', function (t) {
     var i = 100000;
     var groupSize = 1000;
